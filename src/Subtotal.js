@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "./StateProvider";
-import { getBasketTotal } from './reducer';
+import { getBasketTotal } from "./reducer";
 import { useHistory } from "react-router-dom";
 function Subtotal() {
   const history = useHistory();
-    const [{basket},dispatch]= useStateValue();
- console.log(basket);
+  const [{ basket, user }, dispatch] = useStateValue();
+  console.log(basket);
 
   // if(basket.length==0){
   //   document.getElementById('disable').
@@ -21,10 +21,12 @@ function Subtotal() {
               Subtotal ({basket.length} items):
               <strong>{value}</strong>
             </p>
-            <small className="subtotal__gift">
+            {basket.length && user ? (
+              <small className="subtotal__gift">
               <input type="checkbox" />
               This order contains a gift
             </small>
+            ) :"" }
           </>
         )}
         decimalScale={2}
@@ -33,7 +35,13 @@ function Subtotal() {
         thousandsSeparated={true}
         prefix={"$"}
       />
-      <button disabled={basket.length < 1} onClick={e=> history.push('./payment')}>Proceed to checkout</button>
+      <button
+        disabled={basket.length < 1 || !user}
+        onClick={(e) => history.push("./payment")}
+      >
+        Proceed to checkout
+      </button>
+      <div className='condition'>{basket.length && user ? "" : "Sign Up /Sign In first"}</div>
     </div>
   );
 }

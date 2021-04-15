@@ -5,7 +5,7 @@ import './Orders.css';
 import { useStateValue } from './StateProvider';
 function Orders() {
     const [{ basket, user }, dispatch] = useStateValue();
-    const uid = user.uid
+    const uid = user?.uid
    
      const [orders, setOrders] = useState([]);
     useEffect(()=>{
@@ -23,8 +23,8 @@ function Orders() {
     console.log(orders);
     return (
         <div className='orders'>
-        <h1>Your Orders</h1><br/>
-        <h4 >Hello {!user ? 'Guest' : user.email.substring(0, user.email.indexOf("@"))}</h4>
+        <h1>{!user ? "don't find the order" :" Your Orders"}</h1><br/>
+        <h4 >Hello {!user ? 'Guest &&  please signIn / signUp ' : user.email.substring(0, user.email.indexOf("@"))}</h4>
         
 
         <div className='orders__order'>

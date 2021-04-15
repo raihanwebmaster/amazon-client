@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 300px;
-    height: 100px;
+    height: 120px;
     padding: 20px;
     background-color: #f3f3f3;
     border: 1px solid #dddddd;
@@ -28,4 +28,9 @@
   }
   button:disabled{
     background-color: transparent
+  }
+  .condition{
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
   }
