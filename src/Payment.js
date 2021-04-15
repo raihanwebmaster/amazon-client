@@ -26,7 +26,7 @@ function Payment() {
     // generate the special stripe secret which allows us to charge a customer
     const getClientSecret = async () => {
       const response = await axios({
-        method:"post",
+        method: "post",
         // Stripe expects the total in a currencies subunits
         url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
       });
@@ -51,52 +51,31 @@ function Payment() {
         },
       })
       .then(({ paymentIntent }) => {
-        // paymentIntent = payment confirmation
-        // paymentInter.id
-        // paymentInter.amount
-        // paymentIntent.created
-        // basket
         const orderData = {
           payId: paymentIntent.id,
           amount: paymentIntent.amount,
           created: paymentIntent.created,
           kart: basket,
-          uid:user.uid
-        }
-        fetch('https://amazon-server-it.herokuapp.com/order', {
-          method: 'POST',
+          uid: user.uid,
+        };
+        fetch("https://amazon-server-it.herokuapp.com/order", {
+          method: "POST",
           headers: {
-              'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(orderData)
-      })
-
-          .then(res => {
-              console.log('server side response', res)
-          })
-      console.log(orderData)
-
-
-        // db
-        //       .collection('users')
-        //       .doc(user?.uid)
-        //       .collection('orders')
-        //       .doc(paymentIntent.id)
-        //       .set({
-        //           basket: basket,
-        //           amount: paymentIntent.amount,
-        //           created: paymentIntent.created
-        //       })
-
-        setSucceeded(true);
-        setError(null);
-        setProcessing(false);
-        localStorage.removeItem('basket')
-        dispatch({
-          type: "EMPTY_BASKET",
+          body: JSON.stringify(orderData),
+        }).then((res) => {
+          history.replace("/orders");
+          setSucceeded(true);
+          setError(null);
+          setProcessing(false);
+          localStorage.removeItem("basket");
+          dispatch({
+            type: "EMPTY_BASKET",
+          });
+          console.log("server side response", res);
         });
-
-        history.replace("/orders");
+        console.log(orderData);
       });
   };
 
