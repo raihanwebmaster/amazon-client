@@ -11,7 +11,7 @@ function Orders() {
     useEffect(()=>{
         //http://localhost:5000/
         //https://amazon-server-it.herokuapp.com/
-        fetch('http://localhost:5000/userOrdered?uid='+uid,{
+        fetch('https://amazon-server-it.herokuapp.com/userOrdered?uid='+uid,{
             method: 'GET'
         })
         .then(res => res.json())
@@ -23,8 +23,8 @@ function Orders() {
     console.log(orders);
     return (
         <div className='orders'>
-        <h1>{!user ? "don't find the order" :" Your Orders"}</h1><br/>
-        <h4 >Hello {!user ? 'Guest &&  please signIn / signUp ' : user.email.substring(0, user.email.indexOf("@"))}</h4>
+        <h1>Your Orders</h1><br/>
+        <h4 >Hello {user?.email.substring(0, user.email.indexOf("@"))}</h4>
         
 
         <div className='orders__order'>

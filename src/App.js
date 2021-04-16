@@ -13,6 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import Payment from "./Payment";
 import Orders from "./Orders";
 import ScrollToTop from "./ScrollToTop";
+import PrivateRoute from "./PrivateRoute";
 const promise = loadStripe(
   "pk_test_51HZx4WJ1j9K7KZvqnVOm2to1bAIV49d6sssObJWzQrnMpeJTNxFfyurGG0wqTbTBMYYqVN0Ig33cN4XDBp8ApT3i00NZhdOW02"
 );
@@ -29,6 +30,7 @@ function App() {
         dispatch({ type: "SET_USER", user: authUser });
       } else {
         
+        localStorage.removeItem('authUser')
         // the user is logged out
         dispatch({ type: "SET_USER", user: null });
       }
@@ -40,10 +42,10 @@ function App() {
       <ScrollToTop/>
       <div className="App">
         <Switch>
-          <Route path="/orders">
+          <PrivateRoute path="/orders">
             <Header></Header>
             <Orders />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login />
           </Route>

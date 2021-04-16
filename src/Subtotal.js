@@ -37,7 +37,7 @@ function Subtotal() {
       />
       <button
         disabled={basket.length < 1 || !user}
-        onClick={(e) => history.push("./payment")}
+        onClick={(e) => history.push("/payment")}
       >
         Proceed to checkout
       </button>
